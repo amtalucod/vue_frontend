@@ -53,6 +53,11 @@ const routes = [
         name: 'EditUser',
         component: EditUser,
         props: true // Ensure that props are passed to the component
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test,
     }
 ]
 const router = createRouter({
