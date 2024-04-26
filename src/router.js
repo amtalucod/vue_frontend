@@ -7,6 +7,7 @@ import User from './components/User.vue'
 import Profile from './components/Profile.vue'
 import EditUser from './components/EditUser.vue'
 import HelloWorld from './components/HelloWorld.vue'
+import Test from './components/Test.vue'
 
 const routes = [
     {
