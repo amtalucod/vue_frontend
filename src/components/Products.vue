@@ -71,7 +71,7 @@
                   >
                     <br />
                     <div class="field form-group">
-                      <label for="name">Name</label><br />
+                      <label for="name">Product Name</label><br />
                       <input
                         type="text"
                         v-model="name"
@@ -283,34 +283,43 @@ export default {
       }
     },
     async deleteProduct(productId) {
-      try {
-        const response = await this.$apollo.mutate({
-          mutation: deleteProductMutation,
-          variables: {
-            input: {
-              id: productId,
-            },
-          },
-          update: (cache, { data: { deleteProduct } }) => {
-            // Update the cache by removing the deleted Product
-            const { allProducts } = cache.readQuery({
-              query: getAllProductsQuery,
-            });
-            const updatedProducts = allProducts.filter(
-              (product) => product.id !== productId
-            );
-            cache.writeQuery({
-              query: getAllProductsQuery,
-              data: { allProducts: updatedProducts },
-            });
-          },
-        });
+      // Show confirmation dialog
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this product?"
+      );
 
-        console.log(response.data.deleteProduct); // Handle the response as needed
-      } catch (error) {
-        console.error("Error deleting Product:", error);
+      // If the user confirms deletion, proceed with deletion
+      if (confirmDelete) {
+        try {
+          const response = await this.$apollo.mutate({
+            mutation: deleteProductMutation,
+            variables: {
+              input: {
+                id: productId,
+              },
+            },
+            update: (cache, { data: { deleteProduct } }) => {
+              // Update the cache by removing the deleted Product
+              const { allProducts } = cache.readQuery({
+                query: getAllProductsQuery,
+              });
+              const updatedProducts = allProducts.filter(
+                (product) => product.id !== productId
+              );
+              cache.writeQuery({
+                query: getAllProductsQuery,
+                data: { allProducts: updatedProducts },
+              });
+            },
+          });
+
+          console.log(response.data.deleteProduct); // Handle the response as needed
+        } catch (error) {
+          console.error("Error deleting Product:", error);
+        }
       }
     },
+
     confirmDeleteProduct(productId) {
       if (confirm("Are you sure you want to delete this product?")) {
         this.deleteProduct(productId);

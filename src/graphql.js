@@ -73,11 +73,9 @@ export const editUserMutation = gql`
   mutation EditUser($input: EditUserInput!) {
     editUser(input: $input) {
       id
-      name
-      email
-      country
-      region
-      city
+      firstName
+      lastName
+      mobileNumber
     }
   }
 `;

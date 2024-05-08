@@ -31,6 +31,8 @@
                   type="text"
                   v-model="firstName"
                   id="firstName"
+                  autofocus="true"
+                  autocomplete="firstName"
                   class="form-control"
                   placeholder="First Name"
                 />
@@ -42,6 +44,8 @@
                   type="text"
                   v-model="lastName"
                   id="lastName"
+                  autofocus="true"
+                  autocomplete="lastName"
                   class="form-control"
                   placeholder="Last Name"
                 />
@@ -53,6 +57,8 @@
                   type="text"
                   v-model="mobileNumber"
                   id="mobileNumber"
+                  autofocus="true"
+                  autocomplete="mobileNumber"
                   class="form-control"
                   placeholder="Mobile Number"
                 />
@@ -180,8 +186,7 @@ export default {
 
         // Redirect to profile page after successful addition and login
         this.$router.push({
-          name: "Profile",
-          params: { userId: user.id },
+          name: "OrderManager",
         });
       } catch (error) {
         console.error("Error adding user:", error);

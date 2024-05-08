@@ -133,7 +133,7 @@ export default {
             },
           },
         });
-        this.$router.push("/profile"); // Redirect to home page after successful edit
+        this.$router.push("/"); // Redirect to home page after successful edit
       } catch (error) {
         console.error("Error editing user:", error);
       }

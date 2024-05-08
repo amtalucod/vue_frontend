@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
       <div class="card text-center w-50">
         <div class="card-header">
-          <h1 class="card-title">Test APP</h1>
+          <h1 class="card-title">POS APP</h1>
         </div>
         <div class="card-body">
           <br />

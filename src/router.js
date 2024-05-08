@@ -18,21 +18,27 @@ const routes = [
     {
         path: '/users',
         name: 'Users',
-        component: Users
-        // beforeEnter: (to, from, next) => {
-        //     if (store.state.currentUser !== null) {
-        //         next()
-        //     } else {
-        //         alert('Unauthorized access. Please log in.');
-        //         next('/login')
-        //     }
-        // }
+        component: Users,
+        beforeEnter: (to, from, next) => {
+            if (store.state.currentUser === null) {
+                // If the user is not logged in, redirect to the login page
+                alert('Unauthorized access. Please log in as an admin.');
+                next('/login');
+            } else if (!store.state.currentUser.admin) {
+                // If the user is logged in but not an admin, redirect to order manager
+                alert('Unauthorized access. Please log in as an admin.');
+                next('/');
+            } else {
+                // If the user is logged in and is an admin, allow access
+                next();
+            }
+        }
     },
-    {
-        path: '/',
-        name: 'HelloWorld',
-        component: HelloWorld
-    },
+    // {
+    //     path: '/',
+    //     name: 'HelloWorld',
+    //     component: HelloWorld
+    // },
     {
         path: '/signup',
         name: 'Signup',
@@ -68,17 +74,47 @@ const routes = [
     {
         path: '/products',
         name: 'Products',
-        component: Products
+        component: Products,
+        beforeEnter: (to, from, next) => {
+            if (store.state.currentUser === null) {
+                // If the user is not logged in, redirect to the login page
+                alert('Please log in');
+                next('/login');
+            } else {
+                // If the user is logged in and is an admin, allow access
+                next();
+            }
+        }
     },
     {
         path: '/orders',
         name: 'Orders',
-        component: Orders
+        component: Orders,
+        beforeEnter: (to, from, next) => {
+            if (store.state.currentUser === null) {
+                // If the user is not logged in, redirect to the login page
+                alert('Please log in');
+                next('/login');
+            } else {
+                // If the user is logged in and is an admin, allow access
+                next();
+            }
+        }
     },
     {
-        path: '/ordermanager',
+        path: '/',
         name: 'OrderManager',
-        component: OrderManager
+        component: OrderManager,
+        beforeEnter: (to, from, next) => {
+            if (store.state.currentUser === null) {
+                // If the user is not logged in, redirect to the login page
+                alert('Please log in');
+                next('/login');
+            } else {
+                // If the user is logged in and is an admin, allow access
+                next();
+            }
+        }
     },
 ]
 const router = createRouter({

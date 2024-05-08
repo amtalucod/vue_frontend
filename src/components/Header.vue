@@ -30,72 +30,74 @@
               Search
             </button>
           </form-->
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/ordermanager"
-              >Order Manager</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/orders"
-              >Orders</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/products"
-              >Products</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/users"
-              >Users</a
-            >
-          </li>
+          <template v-if="currentUser !== null">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/"
+                >Order Manager</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/products"
+                >Product Manager</a
+              >
+            </li>
+          </template>
 
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login"
-              >Login</a
-            >
-          </li>
+          <template v-if="currentUser !== null && currentUser.admin">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/users"
+                >Users</a
+              >
+            </li>
+          </template>
 
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/signup"
-              >Sign-Up</a
-            >
-          </li>
+          <template v-if="currentUser === null">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"
+                >Login</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/signup"
+                >Sign-Up</a
+              >
+            </li>
+          </template>
 
           <!-- <li class="nav-item">
             <a class="nav-link active" href="/profile">Profile</a>
           </li> -->
+          <template v-if="currentUser !== null">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Settings
+              </a>
 
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Settings
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <template v-if="currentUser !== null">
+              <ul class="dropdown-menu">
+                <li>
                   <a
                     class="dropdown-item"
                     :href="`/user/${currentUser.id}/edit`"
                     >Edit Profile</a
                   >
-                </template>
-              </li>
+                </li>
 
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" href="#" @click.prevent="logout"
-                  >Logout</a
-                >
-              </li>
-            </ul>
-          </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/login" @click.prevent="logout"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </template>
         </ul>
       </div>
     </div>

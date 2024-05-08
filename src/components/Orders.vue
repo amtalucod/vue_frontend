@@ -23,6 +23,14 @@
         <!-- Content for Show Products tab -->
         <h1>Products</h1>
         <div>
+          <!-- Search input -->
+          <input
+            type="text"
+            v-model="searchQuery"
+            placeholder="Search products"
+            class="form-control"
+          />
+
           <!-- Filter buttons -->
           <div class="filter-buttons">
             <button
@@ -217,11 +225,11 @@
               </div>
 
               <div class="form-row">
-                <label class="form-label">City *</label>
+                <label for="city">City *</label>
                 <select
                   v-model="selectedCity"
                   @change="fillBarangays"
-                  class="form-control form-control-md"
+                  class="form-control"
                 >
                   <option
                     v-for="city in cities"
@@ -232,8 +240,8 @@
                   </option>
                 </select>
 
-                <label class="form-label">Barangay *</label>
-                <select v-model="barangay" class="form-control form-control-md">
+                <label for="barangay">Barangay *</label>
+                <select v-model="barangay" class="form-control">
                   <option
                     v-for="barangay in barangays"
                     :key="barangay.brgy_code"
@@ -480,20 +488,22 @@
         <p>Your cart is empty.</p>
       </div>
 
-      <!-- Voucher code input (optional) -->
-      <!-- <div>
-        <input
-          type="text"
-          v-model="voucherCode"
-          placeholder="Enter Voucher Code"
-        />
-        <button @click="applyVoucher">Apply</button>
-        <span v-if="voucherApplied">Voucher applied successfully!</span>
-        <span v-if="voucherError">Invalid voucher code. Please try again.</span>
-      </div> -->
-
       <!-- Order Summary -->
       <div v-if="cartItems.length > 0">
+        <!-- Voucher code input (optional) -->
+        <div>
+          <input
+            type="text"
+            v-model="voucherCode"
+            placeholder="Enter Voucher Code"
+          />
+          <button @click="applyVoucher">Apply</button>
+          <span v-if="voucherApplied">Voucher applied successfully!</span>
+          <span v-if="voucherError"
+            >Invalid voucher code. Please try again.</span
+          >
+        </div>
+
         <h3>Order Summary</h3>
         <p>Subtotal: ₱ {{ subtotal }}</p>
         <p>Delivery Fee: ₱ {{ deliveryFee }}</p>
@@ -508,7 +518,7 @@
         @click="checkout"
         class="btn btn-primary"
       >
-        Checkout
+        Continue
       </button>
       <button
         v-if="activeTab === 'checkout'"
@@ -553,6 +563,7 @@ export default {
       // selectedCustomerEmail: "",
       filteredCustomers: [],
       showDropdown: false,
+      searchQuery: "",
 
       selectedProduct: {
         name: "",
@@ -567,6 +578,16 @@ export default {
       selectedShippingOption: "regular",
       selectedPaymentMethod: "",
       orderType: "online",
+      // voucher codes
+      voucherCode: "",
+      voucherApplied: false,
+      voucherError: false,
+      // Define voucher data (you may fetch this from an API or hardcode it)
+      vouchers: [
+        { code: "VOUCHER10", discount: 10 }, // 10% discount
+        { code: "VOUCHER20", discount: 20 }, // 20% discount
+        // Add more voucher codes as needed
+      ],
 
       //customer data
       firstName: "",
@@ -613,16 +634,16 @@ export default {
   computed: {
     ...mapState(["currentUser"]),
     filteredProducts() {
-      // Using ternary operator
-      const filtered =
-        this.selectedCategory === "All" || !this.selectedCategory
-          ? this.allProducts
-          : this.allProducts.filter(
-              (product) => product.category === this.selectedCategory
-            );
-      // Log a copy of the filteredProducts array
-      // console.log("Filtered Products:", filtered);
-      return filtered;
+      // Filter products based on search query and selected category
+      return this.allProducts.filter((product) => {
+        const isCategoryMatch =
+          this.selectedCategory === "All" ||
+          product.category === this.selectedCategory;
+        const isNameMatch = product.name
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase());
+        return isCategoryMatch && isNameMatch;
+      });
     },
     subtotal() {
       return this.cartItems
@@ -647,6 +668,24 @@ export default {
     },
     convenienceFee() {
       return (10.0).toFixed(2);
+    },
+    // Voucher application
+    voucherApplied() {
+      // Check if the entered voucher code is valid and has been applied
+      if (this.voucherCode && this.vouchers) {
+        const voucher = this.vouchers.find((v) => v.code === this.voucherCode);
+        if (voucher) {
+          // Apply the voucher discount
+          this.voucherAmount =
+            parseFloat(this.subtotal) * (voucher.discount / 100);
+          return true;
+        }
+      }
+      return false;
+    },
+    // Amount to be deducted due to the voucher
+    voucherAmount() {
+      return 0.0; // Initialize with 0, actual value will be set when voucher is applied
     },
     grandTotal() {
       let total =
@@ -801,13 +840,24 @@ export default {
       }
     },
     addToCart() {
-      this.cartItems.push({
-        id: this.selectedProduct.id,
-        name: this.selectedProduct.name,
-        quantity: this.quantity,
-        price: this.selectedProduct.price,
-        photo: this.selectedProduct.photo,
-      });
+      // Check if the selected product is already in the cart
+      const existingItemIndex = this.cartItems.findIndex(
+        (item) => item.id === this.selectedProduct.id
+      );
+
+      if (existingItemIndex !== -1) {
+        // If the product is already in the cart, update its quantity
+        this.cartItems[existingItemIndex].quantity += this.quantity;
+      } else {
+        // If the product is not in the cart, add it as a new entry
+        this.cartItems.push({
+          id: this.selectedProduct.id,
+          name: this.selectedProduct.name,
+          quantity: this.quantity,
+          price: this.selectedProduct.price,
+          photo: this.selectedProduct.photo,
+        });
+      }
       // Optionally, you can reset the quantity
 
       this.quantity = 1;
@@ -974,7 +1024,7 @@ export default {
           grand_total: order.grandTotal,
         };
         // console.log("template details: ", templateParams);
-        // await this.sendEmail("template_z6ev2qk", templateParams);
+        await this.sendEmail("template_z6ev2qk", templateParams);
 
         // Clear the cart and other form fields
         this.cartItems = [];
@@ -1087,7 +1137,7 @@ export default {
 }
 
 .tab:last-child {
-  border-bottom: 1px solid #ccc; /* Ensure last tab has bottom border */
+  border-bottom: 1px solid #ccc;
 }
 
 .filter-buttons {
@@ -1096,6 +1146,13 @@ export default {
 
 .filter-buttons button {
   margin-right: 5px;
+  border-radius: 10px; /* Adjust the border radius to your preference */
+  border: none; /* Remove default button border */
+  padding: 8px 16px; /* Adjust padding as needed */
+  background-color: #f0f0f0; /* Button background color */
+  color: #333; /* Button text color */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
 }
 
 .filter-buttons .active {
@@ -1175,6 +1232,10 @@ label {
 /* Apply styles to inputs */
 input {
   flex: 1; /* Take up remaining space in the row */
+}
+
+select {
+  flex: 1;
 }
 
 /* email input */
