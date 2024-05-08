@@ -108,6 +108,11 @@ export const createProductMutation = gql`
       price
       type
       category
+      user{
+        id
+        firstName
+        lastName
+        }
     }
   }
 `;

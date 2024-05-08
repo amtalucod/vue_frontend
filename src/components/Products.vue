@@ -198,8 +198,12 @@ import {
   getAllCategoriesQuery,
   createCategoryMutation,
 } from "../graphql";
+import { mapState } from "vuex";
 
 export default {
+  computed: {
+    ...mapState(["currentUser"]),
+  },
   name: "AllProducts",
   data() {
     return {
@@ -240,6 +244,7 @@ export default {
               price: this.price,
               photo: this.photo,
               category: this.selectedCategory,
+              userId: this.currentUser.id,
               // type: this.type,
             },
           },
