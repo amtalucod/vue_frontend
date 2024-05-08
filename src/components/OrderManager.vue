@@ -65,14 +65,12 @@
                   <td>
                     {{ order.customer?.mobile }}
                   </td>
-                  <td>
-                    <!-- Loop over each product in the order -->
+                  <!-- <td>
                     <div
                       v-for="(product, index) in order.products"
                       :key="index"
                       class="product-item"
                     >
-                      <!-- Display product details -->
                       <div class="product-details">
                         <img
                           :src="product.photo"
@@ -82,14 +80,11 @@
                         <div class="product-info">
                           <span>{{ product.name }}</span>
                           <span>{{ product.category }}</span>
-                          <!-- <span>{{ product.description }}</span> -->
-                          <!-- Display quantity for the product -->
                           <span>Quantity: {{ order.qty[index] }}</span>
-                          <!-- <span>{{ product.price }}</span> -->
                         </div>
                       </div>
                     </div>
-                  </td>
+                  </td> -->
                   <td>{{ order.shipping }}</td>
                   <td>{{ order.payment }}</td>
                   <td>₱{{ order.grandTotal }}</td>
@@ -153,14 +148,12 @@
                   <td>
                     {{ order.customer?.mobile }}
                   </td>
-                  <td>
-                    <!-- Loop over each product in the order -->
+                  <!-- <td>
                     <div
                       v-for="(product, index) in order.products"
                       :key="index"
                       class="product-item"
                     >
-                      <!-- Display product details -->
                       <div class="product-details">
                         <img
                           :src="product.photo"
@@ -170,14 +163,11 @@
                         <div class="product-info">
                           <span>{{ product.name }}</span>
                           <span>{{ product.category }}</span>
-                          <!-- <span>{{ product.description }}</span> -->
-                          <!-- Display quantity for the product -->
                           <span>Quantity: {{ order.qty[index] }}</span>
-                          <!-- <span>{{ product.price }}</span> -->
                         </div>
                       </div>
                     </div>
-                  </td>
+                  </td> -->
                   <td>{{ order.shipping }}</td>
                   <td>{{ order.payment }}</td>
                   <td>₱{{ order.grandTotal }}</td>
@@ -238,14 +228,12 @@
                   <td>
                     {{ order.customer?.mobile }}
                   </td>
-                  <td>
-                    <!-- Loop over each product in the order -->
+                  <!-- <td>
                     <div
                       v-for="(product, index) in order.products"
                       :key="index"
                       class="product-item"
                     >
-                      <!-- Display product details -->
                       <div class="product-details">
                         <img
                           :src="product.photo"
@@ -255,14 +243,11 @@
                         <div class="product-info">
                           <span>{{ product.name }}</span>
                           <span>{{ product.category }}</span>
-                          <!-- <span>{{ product.description }}</span> -->
-                          <!-- Display quantity for the product -->
                           <span>Quantity: {{ order.qty[index] }}</span>
-                          <!-- <span>{{ product.price }}</span> -->
                         </div>
                       </div>
                     </div>
-                  </td>
+                  </td> -->
                   <td>{{ order.shipping }}</td>
                   <td>{{ order.payment }}</td>
                   <td>₱{{ order.grandTotal }}</td>
