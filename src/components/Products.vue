@@ -30,7 +30,7 @@
                   <div>
                     <label for="category">Select a Category </label>
                     <br />
-                    <select id="category" v-model="selectedCategory">
+                    <select id="category" v-model="selectedCategory" required>
                       <option value="" disabled selected>
                         Select a Category
                       </option>
@@ -81,6 +81,7 @@
                         autocomplete="name"
                         class="form-control"
                         placeholder="Name"
+                        required
                       />
                     </div>
                     <br />
@@ -95,6 +96,7 @@
                         autocomplete="description"
                         class="form-control"
                         placeholder="Description"
+                        required
                       />
                     </div>
                     <br />
@@ -109,6 +111,7 @@
                         autocomplete="price"
                         class="form-control"
                         placeholder="Price"
+                        required
                       />
                     </div>
 
