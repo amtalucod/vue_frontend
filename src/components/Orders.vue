@@ -532,7 +532,6 @@ import {
 } from "../graphql";
 import { mapState } from "vuex";
 import emailjs from "emailjs-com";
-import vSelect from "vue-select";
 import provinceData from "/province.json"; // Import province.json file
 import regionData from "/region.json";
 import cityData from "/city.json";
@@ -541,9 +540,6 @@ import barangayData from "/barangay.json";
 emailjs.init("ouDacUSmfIwMRbir1"); //email config emailjs
 
 export default {
-  components: {
-    "v-select": vSelect,
-  },
   name: "AllProducts",
   data() {
     return {
