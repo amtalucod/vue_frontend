@@ -65,7 +65,7 @@
                   <td>
                     {{ order.customer?.mobile }}
                   </td>
-                  <!-- <td>
+                  <td>
                     <div
                       v-for="(product, index) in order.products"
                       :key="index"
@@ -84,7 +84,7 @@
                         </div>
                       </div>
                     </div>
-                  </td> -->
+                  </td>
                   <td>{{ order.shipping }}</td>
                   <td>{{ order.payment }}</td>
                   <td>₱{{ order.grandTotal }}</td>
@@ -148,7 +148,7 @@
                   <td>
                     {{ order.customer?.mobile }}
                   </td>
-                  <!-- <td>
+                  <td>
                     <div
                       v-for="(product, index) in order.products"
                       :key="index"
@@ -167,7 +167,7 @@
                         </div>
                       </div>
                     </div>
-                  </td> -->
+                  </td>
                   <td>{{ order.shipping }}</td>
                   <td>{{ order.payment }}</td>
                   <td>₱{{ order.grandTotal }}</td>
@@ -228,7 +228,7 @@
                   <td>
                     {{ order.customer?.mobile }}
                   </td>
-                  <!-- <td>
+                  <td>
                     <div
                       v-for="(product, index) in order.products"
                       :key="index"
@@ -247,7 +247,7 @@
                         </div>
                       </div>
                     </div>
-                  </td> -->
+                  </td>
                   <td>{{ order.shipping }}</td>
                   <td>{{ order.payment }}</td>
                   <td>₱{{ order.grandTotal }}</td>

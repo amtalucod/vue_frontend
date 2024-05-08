@@ -294,7 +294,14 @@ export const getAllOrdersQuery = gql`
         email
         mobile
       }
-      
+      products{
+        name
+        description
+        price
+        photo
+        category
+        type
+      }
     }
   }
 `;
