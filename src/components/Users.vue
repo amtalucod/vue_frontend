@@ -1,5 +1,8 @@
 <template>
   <div>
+    <br />
+    <br />
+    <br />
     <div class="container">
       <h1>All users</h1>
       <div class="center-container">
@@ -7,10 +10,10 @@
           <thead class="table-primary">
             <tr>
               <th>Admin</th>
-              <th>Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Email</th>
-              <th>Country</th>
-              <th>PhotoUrl</th>
+              <th>MobileNumber</th>
               <th>View</th>
               <th>Edit</th>
               <th>Delete</th>
@@ -19,10 +22,10 @@
           <tbody>
             <tr v-for="user in allUsers" :key="user.id">
               <td>{{ user.admin }}</td>
-              <td>{{ user.name }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
               <td>{{ user.email }}</td>
-              <td>{{ user.country }}</td>
-              <td>{{ user.photoUrl }}</td>
+              <td>{{ user.mobileNumber }}</td>
               <td><a :href="`/user/${user.id}`">View</a></td>
               <td><a :href="`/user/${user.id}/edit`">Edit</a></td>
               <td>

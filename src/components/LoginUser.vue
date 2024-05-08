@@ -1,5 +1,7 @@
 <template>
   <br />
+  <br />
+  <br />
   <div class="container">
     <div class="row justify-content-center">
       <div class="card text-center w-50">
@@ -104,8 +106,8 @@ export default {
         console.log("Current", user);
 
         this.$router.push({
-          name: "Profile",
-          params: { userId: user.id },
+          name: "OrderManager",
+          // params: { userId: user.id },
         });
         //console.log(user.name);
       } catch (error) {

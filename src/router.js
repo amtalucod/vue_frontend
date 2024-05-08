@@ -7,6 +7,11 @@ import User from './components/User.vue'
 import Profile from './components/Profile.vue'
 import EditUser from './components/EditUser.vue'
 import HelloWorld from './components/HelloWorld.vue'
+import Products from './components/Products.vue'
+import Orders from './components/Orders.vue'
+import OrderManager from './components/OrderManager.vue'
+
+
 import Test from './components/Test.vue'
 
 const routes = [
@@ -59,7 +64,22 @@ const routes = [
         path: '/test',
         name: 'Test',
         component: Test,
-    }
+    },
+    {
+        path: '/products',
+        name: 'Products',
+        component: Products
+    },
+    {
+        path: '/orders',
+        name: 'Orders',
+        component: Orders
+    },
+    {
+        path: '/ordermanager',
+        name: 'OrderManager',
+        component: OrderManager
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),

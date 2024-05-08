@@ -1,5 +1,7 @@
 <template>
   <br />
+  <br />
+  <br />
   <div class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
@@ -8,13 +10,35 @@
           <div class="card-body">
             <form @submit.prevent="editUser">
               <div class="form-group">
-                <label for="name">Name</label>
+                <label for="firstName">First Name</label>
                 <input
                   type="text"
-                  v-model="name"
-                  id="name"
+                  v-model="firstName"
+                  id="firstName"
                   class="form-control"
-                  placeholder="Name"
+                  placeholder="First Name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">last Name</label>
+                <input
+                  type="text"
+                  v-model="lastName"
+                  id="lastName"
+                  class="form-control"
+                  placeholder="Last Name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input
+                  type="text"
+                  v-model="mobileNumber"
+                  id="mobileNumber"
+                  class="form-control"
+                  placeholder="Mobile Number"
                 />
               </div>
 
@@ -26,40 +50,6 @@
                   id="email"
                   class="form-control"
                   placeholder="Email"
-                />
-              </div>
-              <div>
-                <label for="country">Country</label>
-                <input
-                  type="text"
-                  v-model="country"
-                  id="country"
-                  autofocus
-                  autocomplete="country"
-                  class="form-control"
-                  placeholder="Country"
-                />
-              </div>
-
-              <div>
-                <label for="state_region">State/Region</label>
-                <input
-                  type="text"
-                  v-model="region"
-                  id="state_region"
-                  class="form-control"
-                  placeholder="State/Region"
-                />
-              </div>
-
-              <div>
-                <label for="city">City</label>
-                <input
-                  type="text"
-                  v-model="city"
-                  id="city"
-                  class="form-control"
-                  placeholder="City"
                 />
               </div>
 
@@ -104,23 +94,21 @@ export default {
       // It initializes the data properties with the fetched user data
       update(data) {
         const user = data.user;
-        this.name = user.name;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.mobileNumber = user.mobileNumber;
         this.email = user.email;
-        this.country = user.country;
-        this.region = user.region;
-        this.city = user.city;
         this.password = user.password;
       },
     },
   },
   data() {
     return {
-      name: "",
+      firstName: "",
+      lastName: "",
+      mobileNumber: "",
       email: "",
       password: "",
-      country: "",
-      region: "",
-      city: "",
     };
   },
 
@@ -133,17 +121,14 @@ export default {
             id: this.userId,
             input: {
               id: this.userId,
-              name: this.name,
+              firstName: this.firstName,
+              lastName: this.lastName,
+              mobileNumber: this.mobileNumber,
               authProvider: {
                 credentials: {
                   email: this.email,
                   password: this.password,
                 },
-              },
-              location: {
-                country: this.country,
-                region: this.region,
-                city: this.city,
               },
             },
           },

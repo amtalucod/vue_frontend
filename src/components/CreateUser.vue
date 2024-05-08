@@ -1,5 +1,7 @@
 <template>
   <br />
+  <br />
+  <br />
   <div class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
@@ -23,17 +25,36 @@
           </div>
           <div class="card-body">
             <form class="w-1/2 ml-auto mr-auto" @submit.prevent="addUser">
-              <div class="field form-group">
-                <label for="name">Name</label><br />
+              <div class="form-group">
+                <label for="firstName">First Name</label>
                 <input
                   type="text"
-                  v-model="name"
-                  id="name"
-                  name="name"
-                  autofocus="true"
-                  autocomplete="name"
+                  v-model="firstName"
+                  id="firstName"
                   class="form-control"
-                  placeholder="Name"
+                  placeholder="First Name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">last Name</label>
+                <input
+                  type="text"
+                  v-model="lastName"
+                  id="lastName"
+                  class="form-control"
+                  placeholder="Last Name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input
+                  type="text"
+                  v-model="mobileNumber"
+                  id="mobileNumber"
+                  class="form-control"
+                  placeholder="Mobile Number"
                 />
               </div>
 
@@ -51,43 +72,8 @@
                 />
               </div>
 
-              <div>
-                <label for="country">Country</label>
-                <input
-                  type="text"
-                  v-model="country"
-                  id="country"
-                  autofocus
-                  autocomplete="country"
-                  class="form-control"
-                  placeholder="Country"
-                />
-              </div>
-
-              <div>
-                <label for="state_region">State/Region</label>
-                <input
-                  type="text"
-                  v-model="region"
-                  id="state_region"
-                  class="form-control"
-                  placeholder="State/Region"
-                />
-              </div>
-
-              <div>
-                <label for="city">City</label>
-                <input
-                  type="text"
-                  v-model="city"
-                  id="city"
-                  class="form-control"
-                  placeholder="City"
-                />
-              </div>
-
               <div class="field form-group">
-                <label for="name">Password</label><br />
+                <label for="password">Password</label><br />
                 <input
                   type="password"
                   v-model="password"
@@ -114,11 +100,11 @@
               </div>
 
               <br />
-              <div class="field form-group">
+              <!-- <div class="field form-group">
                 <button id="upload_widget" class="cloudinary-button">
                   Upload Photo
                 </button>
-              </div>
+              </div> -->
               <br />
 
               <button type="submit" class="btn btn-success">Submit</button>
@@ -142,15 +128,13 @@ export default {
   name: "AddUser",
   data() {
     return {
-      name: "",
+      firstName: "",
+      lastName: "",
+      mobileNumber: "",
       email: "",
       password: "",
       passwordConfirmation: "",
-      country: "",
-      region: "",
-      city: "",
-      photoUrl: [],
-      // admin: "",
+      // photoUrl: [],
       userErrors: [],
     };
   },
@@ -168,19 +152,16 @@ export default {
           mutation: createUserMutation,
           variables: {
             input: {
-              name: this.name,
+              firstName: this.firstName,
+              lastName: this.lastName,
+              mobileNumber: this.mobileNumber,
               authProvider: {
                 credentials: {
                   email: this.email,
                   password: this.password,
                 },
               },
-              location: {
-                country: this.country,
-                region: this.region,
-                city: this.city,
-              },
-              photoUrl: this.photoUrl,
+              // photoUrl: this.photoUrl,
             },
           },
           refetchQueries: [
@@ -236,28 +217,28 @@ export default {
       }
     },
   },
-  mounted() {
-    const myWidget = cloudinary.createUploadWidget(
-      {
-        cloudName: "dwfxnxn2b",
-        uploadPreset: "htodkibj",
-      },
-      (error, result) => {
-        if (!error && result && result.event === "success") {
-          console.log("Success ! Here is the image info: ", result.info);
-          console.log("The url is: ", result.info.secure_url);
-          this.photoUrl.push(result.info.secure_url); // Update the user to include the uploaded photo URL
-        }
-      }
-    );
-    document.getElementById("upload_widget").addEventListener(
-      "click",
-      (event) => {
-        event.preventDefault(); // Prevent form submission
-        myWidget.open();
-      },
-      false
-    );
-  },
+  // mounted() {
+  //   const myWidget = cloudinary.createUploadWidget(
+  //     {
+  //       cloudName: "dwfxnxn2b",
+  //       uploadPreset: "htodkibj",
+  //     },
+  //     (error, result) => {
+  //       if (!error && result && result.event === "success") {
+  //         console.log("Success ! Here is the image info: ", result.info);
+  //         console.log("The url is: ", result.info.secure_url);
+  //         this.photoUrl.push(result.info.secure_url); // Update the user to include the uploaded photo URL
+  //       }
+  //     }
+  //   );
+  //   document.getElementById("upload_widget").addEventListener(
+  //     "click",
+  //     (event) => {
+  //       event.preventDefault(); // Prevent form submission
+  //       myWidget.open();
+  //     },
+  //     false
+  //   );
+  // },
 };
 </script>

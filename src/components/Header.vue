@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-primary">
+  <nav class="navbar navbar-expand-lg bg-primary fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">AMT TEST APP</a>
+      <a class="navbar-brand" href="#">POS App</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -30,7 +30,21 @@
               Search
             </button>
           </form-->
-
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/ordermanager"
+              >Order Manager</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/orders"
+              >Orders</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/products"
+              >Products</a
+            >
+          </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/users"
               >Users</a
@@ -49,9 +63,9 @@
             >
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link active" href="/profile">Profile</a>
-          </li>
+          </li> -->
 
           <li class="nav-item dropdown">
             <a
@@ -109,3 +123,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Add styles for fixed header */
+.fixed-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure the header is above other content */
+}
+</style>

@@ -1,5 +1,7 @@
 <template>
   <br />
+  <br />
+  <br />
   <div class="container bg-primary-subtle">
     <div class="row">
       <div class="col-md-10">
@@ -7,7 +9,7 @@
           <div class="d-flex flex-column">
             <div>
               <div v-if="currentUser">
-                <img
+                <!-- <img
                   v-if="photoUrlArray && photoUrlArray.length > 0"
                   :src="photoUrlArray[0]"
                   alt="User's Photo"
@@ -15,10 +17,10 @@
                   style="width: 300px; height: 400px; object-fit: cover"
                   :data-bs-toggle="'modal'"
                   :data-bs-target="'#imageModal'"
-                />
+                /> -->
 
-                <h3>{{ currentUser.name }}</h3>
-                <p>{{ currentUser.photoUrl }}</p>
+                <h3>{{ currentUser.firstName }}</h3>
+                <!-- <p>{{ currentUser.photoUrl }}</p> -->
               </div>
               <div v-else>
                 <p>No data available</p>
@@ -38,13 +40,13 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState(["currentUser"]),
-    photoUrlArray() {
-      if (this.currentUser && this.currentUser.photoUrl) {
-        return JSON.parse(this.currentUser.photoUrl);
-      } else {
-        return [];
-      }
-    },
+    // photoUrlArray() {
+    //   if (this.currentUser && this.currentUser.photoUrl) {
+    //     return JSON.parse(this.currentUser.photoUrl);
+    //   } else {
+    //     return [];
+    //   }
+    // },
   },
 
   mounted() {
