@@ -46,7 +46,7 @@
           <template v-if="currentUser !== null && currentUser.admin">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/users"
-                >Users</a
+                >User Manager</a
               >
             </li>
           </template>
