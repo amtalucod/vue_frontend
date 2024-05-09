@@ -498,17 +498,18 @@
             placeholder="Enter Voucher Code"
           />
           <button @click="applyVoucher">Apply</button>
-          <span v-if="voucherApplied">Voucher applied successfully!</span>
-          <span v-if="voucherError"
-            >Invalid voucher code. Please try again.</span
-          >
+          <p v-if="voucherApplied">Voucher applied successfully!</p>
+          <p v-if="voucherError">Invalid voucher code. Please try again.</p>
         </div>
 
         <h3>Order Summary</h3>
         <p>Subtotal: ₱ {{ subtotal }}</p>
         <p>Delivery Fee: ₱ {{ deliveryFee }}</p>
         <p>Convenience Fee: ₱ {{ convenienceFee }}</p>
-        <p v-if="voucherApplied">Voucher Code: {{ voucherCode }}</p>
+        <!-- <p v-if="voucherApplied">Voucher Code: {{ voucherCode }}</p> -->
+        <p v-if="voucherApplied">
+          Voucher Deduction: ₱ {{ voucherAmount.toFixed(2) }}
+        </p>
         <h5>Grand Total: ₱ {{ grandTotal }}</h5>
       </div>
 
@@ -582,10 +583,12 @@ export default {
       voucherCode: "",
       voucherApplied: false,
       voucherError: false,
+      voucherAmount: 0.0,
       // Define voucher data (you may fetch this from an API or hardcode it)
       vouchers: [
-        { code: "VOUCHER10", discount: 10 }, // 10% discount
-        { code: "VOUCHER20", discount: 20 }, // 20% discount
+        { code: "amt5", discount: 5 }, // 10% discount
+        { code: "amt10", discount: 10 }, // 10% discount
+        { code: "amt20", discount: 20 }, // 20% discount
         // Add more voucher codes as needed
       ],
 
@@ -670,23 +673,23 @@ export default {
       return (10.0).toFixed(2);
     },
     // Voucher application
-    voucherApplied() {
-      // Check if the entered voucher code is valid and has been applied
-      if (this.voucherCode && this.vouchers) {
-        const voucher = this.vouchers.find((v) => v.code === this.voucherCode);
-        if (voucher) {
-          // Apply the voucher discount
-          this.voucherAmount =
-            parseFloat(this.subtotal) * (voucher.discount / 100);
-          return true;
-        }
-      }
-      return false;
-    },
-    // Amount to be deducted due to the voucher
-    voucherAmount() {
-      return 0.0; // Initialize with 0, actual value will be set when voucher is applied
-    },
+    // voucherApplied() {
+    //   // Check if the entered voucher code is valid and has been applied
+    //   if (this.voucherCode && this.vouchers) {
+    //     const voucher = this.vouchers.find((v) => v.code === this.voucherCode);
+    //     if (voucher) {
+    //       // Apply the voucher discount
+    //       this.voucherAmount =
+    //         parseFloat(this.subtotal) * (voucher.discount / 100);
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // },
+    // // Amount to be deducted due to the voucher
+    // voucherAmount() {
+    //   return 0.0; // Initialize with 0, actual value will be set when voucher is applied
+    // },
     grandTotal() {
       let total =
         parseFloat(this.subtotal) +
@@ -896,6 +899,23 @@ export default {
         this.allCategories = data.allCategories; // Assign fetched categories to allCategories
       } catch (error) {
         console.error("Error fetching categories:", error);
+      }
+    },
+    applyVoucher() {
+      // Reset error message
+      this.voucherError = false;
+      this.voucherApplied = false;
+
+      if (this.voucherCode && this.vouchers) {
+        const voucher = this.vouchers.find((v) => v.code === this.voucherCode);
+        if (voucher) {
+          // Apply the voucher discount
+          this.voucherAmount =
+            parseFloat(this.subtotal) * (voucher.discount / 100);
+          this.voucherApplied = true;
+        } else {
+          this.voucherError = true;
+        }
       }
     },
     async addCustomer() {
