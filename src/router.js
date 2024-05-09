@@ -47,7 +47,18 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: LoginUser
+        component: LoginUser,
+        beforeEnter: (to, from, next) => {
+            // Check if the user is already logged in
+            if (store.state.currentUser) {
+                // If the user is logged in, redirect to root and show alert
+                alert('You are already logged in.');
+                next('/');
+            } else {
+                // If the user is not logged in, allow access to the login page
+                next();
+            }
+        }
     },
     {
         path: '/user/:userId',
