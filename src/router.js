@@ -119,7 +119,7 @@ const routes = [
         beforeEnter: (to, from, next) => {
             if (store.state.currentUser === null) {
                 // If the user is not logged in, redirect to the login page
-                alert('Please log in');
+                // alert('Please log in');
                 next('/login');
             } else {
                 // If the user is logged in and is an admin, allow access

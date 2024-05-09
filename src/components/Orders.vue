@@ -117,6 +117,7 @@
                   class="form-control"
                   @input="handleInputChange"
                   @click="toggleDropdown"
+                  required
                 />
                 <div v-show="showDropdown" class="dropdown">
                   <select
@@ -191,7 +192,7 @@
               <h3>Delivery & Billing Information</h3>
 
               <div class="form-row">
-                <label class="form-label">Region </label>
+                <label class="form-label">Region *</label>
                 <select
                   name="region"
                   class="form-control form-control-md"
@@ -208,7 +209,7 @@
                   </option>
                 </select>
 
-                <label class="form-label"> Province </label>
+                <label class="form-label"> Province *</label>
                 <select
                   v-model="selectedProvince"
                   @change="fillCities"
@@ -253,7 +254,7 @@
               </div>
 
               <div class="form-row">
-                <label for="street">Street: </label>
+                <label for="street">Street: *</label>
                 <input
                   type="street"
                   id="street"
